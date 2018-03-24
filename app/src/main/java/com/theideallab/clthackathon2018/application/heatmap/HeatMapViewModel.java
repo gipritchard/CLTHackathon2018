@@ -10,6 +10,7 @@ import com.google.maps.android.heatmaps.HeatmapTileProvider;
 import com.theideallab.clthackathon2018.repository.Repository;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Alex Pritchard on 3/23/18.
@@ -18,6 +19,7 @@ import java.util.ArrayList;
 public class HeatMapViewModel extends AndroidViewModel {
 
     private Repository repository;
+    public ArrayList<String> filters;
 
     public MutableLiveData<ArrayList<TileOverlayOptions>> heatmapFilters = new MutableLiveData<>();
 
@@ -51,6 +53,11 @@ public class HeatMapViewModel extends AndroidViewModel {
         }
 
         heatmapFilters.postValue(overlays);
+    }
+
+    public void getOverlays() {
+        //TODO the api things ( and probably return live data things)
+        //Can just use filters from the viewmodel now
     }
 
 }

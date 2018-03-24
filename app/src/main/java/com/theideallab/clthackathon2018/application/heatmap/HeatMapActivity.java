@@ -9,14 +9,19 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
-import android.widget.PopupMenu;
+import android.widget.PopupWindow;
 
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.TileOverlayOptions;
 import com.theideallab.clthackathon2018.R;
+
+import java.util.ArrayList;
 
 
 public class HeatMapActivity extends AppCompatActivity implements OnMapReadyCallback {
@@ -25,6 +30,7 @@ public class HeatMapActivity extends AppCompatActivity implements OnMapReadyCall
 
     private GoogleMap googleMap;
     private HeatMapViewModel viewModel;
+    private PopupWindow popupWindow;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -71,6 +77,35 @@ public class HeatMapActivity extends AppCompatActivity implements OnMapReadyCall
         }
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+
+        MenuInflater menuInflater = getMenuInflater();
+        menuInflater.inflate(R.menu.filter_menu, menu);
+
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (viewModel.filters == null) {
+            viewModel.filters = new ArrayList<String>();
+        }
+
+        switch (item.getItemId()) {
+            case R.id.has_children:
+                item.setChecked(!item.isChecked());
+                viewModel.filters.add("SCHOOL");
+                break;
+            default:
+                break;
+        }
+
+        viewModel.getOverlays();
+
+        return false;
+    }
+
     private void checkAndRequestPermissions(@NonNull GoogleMap googleMap) {
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
                 == PackageManager.PERMISSION_GRANTED)
@@ -84,8 +119,10 @@ public class HeatMapActivity extends AppCompatActivity implements OnMapReadyCall
     }
 
     public void showFilterMenu(View v) {
-        PopupMenu popupMenu = new PopupMenu(this, v);
-        popupMenu.inflate(R.menu.filter_menu);
-        popupMenu.show();
+        if (popupWindow == null) {
+            popupWindow = new PopupWindow();
+        }
+
+
     }
 }
