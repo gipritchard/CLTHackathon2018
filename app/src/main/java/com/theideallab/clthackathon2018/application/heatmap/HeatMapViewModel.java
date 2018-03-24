@@ -12,6 +12,7 @@ import android.support.v7.app.AppCompatActivity;
 
 import com.google.android.gms.maps.model.TileOverlayOptions;
 import com.google.maps.android.heatmaps.HeatmapTileProvider;
+import com.theideallab.clthackathon2018.R;
 import com.theideallab.clthackathon2018.application.advancedfilter.AdvancedFilterActivity;
 import com.theideallab.clthackathon2018.repository.Repository;
 
@@ -70,7 +71,15 @@ public class HeatMapViewModel extends AndroidViewModel {
     public AlertDialog createFilterDialog(@NonNull AppCompatActivity ctx) {
         AlertDialog.Builder builder = new AlertDialog.Builder(ctx);
 
-        builder.setNeutralButton("Advanced", (dialog, which) -> {
+        builder.setTitle("Filter");
+
+        String[] filterOptions = new String[] { "Compare Price", "Show Schools", "Access to Public Transportation" };
+        boolean[] filterOptionsChecked = new boolean[] { true, true, false};
+
+        builder.setMultiChoiceItems(filterOptions, filterOptionsChecked, (dialog, which, isChecked) -> {
+        });
+
+        builder.setNeutralButton("Advanced Filter", (dialog, which) -> {
             Intent intent = AdvancedFilterActivity.createIntent(ctx);
             ctx.startActivityForResult(intent, 123);
         });
