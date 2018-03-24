@@ -14,15 +14,15 @@ import javax.annotation.Nonnull;
 import io.realm.RealmList;
 import io.realm.RealmObject;
 
-public class GenericModelNameHere extends RealmObject implements HeatMapData {
+public class HeatMapDataImpl extends RealmObject implements HeatMapData {
 
     private RealmList<Coordinate> coordinateList = new RealmList<>();
     private String filterName;
     private String filterType;
 
-    public GenericModelNameHere() {}
+    public HeatMapDataImpl() {}
 
-    public GenericModelNameHere(@NonNull ObjResponse data) {
+    public HeatMapDataImpl(@NonNull ObjResponse data) {
         this.coordinateList.addAll(data.getAllCoordinates());
     }
 

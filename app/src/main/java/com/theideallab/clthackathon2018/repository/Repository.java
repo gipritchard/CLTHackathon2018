@@ -4,7 +4,7 @@ package com.theideallab.clthackathon2018.repository;
 import android.arch.lifecycle.MutableLiveData;
 
 import com.theideallab.clthackathon2018.application.heatmap.HeatMapData;
-import com.theideallab.clthackathon2018.model.GenericModelNameHere;
+import com.theideallab.clthackathon2018.model.HeatMapDataImpl;
 import com.theideallab.clthackathon2018.repository.retrofit.HackathonApi;
 import com.theideallab.clthackathon2018.repository.retrofit.HackathonApiClient;
 import com.theideallab.clthackathon2018.repository.retrofit.response.obj.ObjResponse;
@@ -41,7 +41,7 @@ public class Repository implements Callback<ObjResponse> {
 
         ObjResponse data = response.body();
         if (data != null) {
-            GenericModelNameHere obj = new GenericModelNameHere(data);
+            HeatMapDataImpl obj = new HeatMapDataImpl(data);
             value.add(obj);
 
             String urlPage = data.getNextUrl();
