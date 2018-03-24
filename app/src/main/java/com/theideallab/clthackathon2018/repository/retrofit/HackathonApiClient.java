@@ -12,7 +12,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class HackathonApiClient {
 
-    private static final String BASE_URL = "";
+    private static final String BASE_URL = "http://192.168.1.13:8000/butterfly/v1/";
 
     private static Retrofit retrofit = null;
 

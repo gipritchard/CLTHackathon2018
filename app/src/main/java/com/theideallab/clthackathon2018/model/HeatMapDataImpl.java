@@ -5,6 +5,7 @@ import android.support.annotation.NonNull;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.maps.android.heatmaps.WeightedLatLng;
 import com.theideallab.clthackathon2018.application.heatmap.HeatMapData;
+import com.theideallab.clthackathon2018.repository.retrofit.response.obj.ObjResponse;
 
 import java.util.ArrayList;
 
@@ -13,17 +14,16 @@ import javax.annotation.Nonnull;
 import io.realm.RealmList;
 import io.realm.RealmObject;
 
-public class GenericModelNameHere extends RealmObject implements HeatMapData {
+public class HeatMapDataImpl extends RealmObject implements HeatMapData {
 
-    private RealmList<Coordinate> coordinateList;
+    private RealmList<Coordinate> coordinateList = new RealmList<>();
     private String filterName;
     private String filterType;
 
-    public GenericModelNameHere() {
-    }
+    public HeatMapDataImpl() {}
 
-    public GenericModelNameHere(RealmList<Coordinate> coordinateList) {
-        this.coordinateList = coordinateList;
+    public HeatMapDataImpl(@NonNull ObjResponse data) {
+        this.coordinateList.addAll(data.getAllCoordinates());
     }
 
     @Override
@@ -45,7 +45,7 @@ public class GenericModelNameHere extends RealmObject implements HeatMapData {
     @NonNull
     @Override
     public ArrayList<WeightedLatLng> getWeightedPoints() {
-        return null;
+        return new ArrayList<>();
     }
 
     @NonNull

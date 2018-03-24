@@ -35,7 +35,8 @@ public class HeatMapViewModel extends AndroidViewModel {
     }
 
     public void onLoadComplete(){
-        repository.testOnGetDataSuccessfulNerds();
+        //repository.testOnGetDataSuccessfulNerds();
+        repository.retrofitGetObject();
     }
 
     public void generateTestData(@NonNull ArrayList<HeatMapData> dataset){
@@ -46,7 +47,7 @@ public class HeatMapViewModel extends AndroidViewModel {
 
             HeatmapTileProvider provider = new HeatmapTileProvider.Builder()
                     .data(entry.getPoints())
-                    .weightedData(entry.getWeightedPoints())
+                    //.weightedData(entry.getWeightedPoints())
                     .build();
 
             overlays.add(new TileOverlayOptions().tileProvider(provider));
