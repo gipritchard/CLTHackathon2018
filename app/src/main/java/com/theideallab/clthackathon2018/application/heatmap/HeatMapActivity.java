@@ -57,6 +57,7 @@ public class HeatMapActivity extends AppCompatActivity implements OnMapReadyCall
     @Override
     public void onMapReady(GoogleMap googleMap) {
         this.googleMap = googleMap;
+        this.googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(35.2271,-80.8431) , 10) ); //Start Map over Charlotte NC
         checkAndRequestPermissions(googleMap);
         viewModel.onLoadComplete();
     }
