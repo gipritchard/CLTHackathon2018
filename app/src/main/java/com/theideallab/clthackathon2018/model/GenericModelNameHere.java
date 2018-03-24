@@ -1,4 +1,4 @@
-package com.theideallab.clthackathon2018.model.realm;
+package com.theideallab.clthackathon2018.model;
 
 
 import io.realm.RealmObject;
