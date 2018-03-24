@@ -19,12 +19,7 @@ public class LiveRealmDataList<T extends RealmModel> extends LiveData<RealmResul
         results = realmResults;
     }
 
-    private final RealmChangeListener<RealmResults<T>> listener = new RealmChangeListener<RealmResults<T>>() {
-        @Override
-        public void onChange(RealmResults<T> ts) {
-            setValue(ts);
-        }
-    };
+    private final RealmChangeListener<RealmResults<T>> listener = ts -> setValue(ts);
 
     @Override
     protected void onActive() {
