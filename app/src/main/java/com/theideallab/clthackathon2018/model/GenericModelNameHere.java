@@ -1,34 +1,27 @@
 package com.theideallab.clthackathon2018.model;
 
 
+import com.google.android.gms.maps.model.LatLng;
+
+import java.util.ArrayList;
+
 import io.realm.RealmObject;
 
 public class GenericModelNameHere extends RealmObject {
 
-    private double latitude;
-    private double longtitude;
+    private ArrayList<LatLng> coordinateList;
 
-    public GenericModelNameHere() {
+    public GenericModelNameHere() {}
+
+    public GenericModelNameHere(ArrayList<LatLng> coordinateList) {
+        this.coordinateList = coordinateList;
     }
 
-    public GenericModelNameHere(double latitude, double longtitude) {
-        this.latitude = latitude;
-        this.longtitude = longtitude;
+    public ArrayList<LatLng> getCoordinateList() {
+        return coordinateList;
     }
 
-    public double getLatitude() {
-        return latitude;
-    }
-
-    public void setLatitude(double latitude) {
-        this.latitude = latitude;
-    }
-
-    public double getLongtitude() {
-        return longtitude;
-    }
-
-    public void setLongtitude(double longtitude) {
-        this.longtitude = longtitude;
+    public void setCoordinateList(ArrayList<LatLng> coordinateList) {
+        this.coordinateList = coordinateList;
     }
 }
