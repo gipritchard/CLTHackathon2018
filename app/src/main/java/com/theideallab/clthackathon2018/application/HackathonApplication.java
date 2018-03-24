@@ -21,4 +21,6 @@ public class HackathonApplication extends Application {
         Fabric.with(this, new Crashlytics(), new Answers());
         Realm.init(this);
     }
+
+
 }
