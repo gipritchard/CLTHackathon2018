@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "932678338539",
+    "firebase_url": "https://clthackathon2018.firebaseio.com",
+    "project_id": "clthackathon2018",
+    "storage_bucket": "clthackathon2018.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:932678338539:android:96e93b8f719d79ec",
+        "android_client_info": {
+          "package_name": "com.theideallab.clthackathon2018.debug"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "932678338539-dl2j2r6283aa5rpm9aboo8triv5nblc8.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBdMR01vfKil678BCwxiuqrouqAwBsQii8"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

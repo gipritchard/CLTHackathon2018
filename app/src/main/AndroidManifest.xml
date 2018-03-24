@@ -13,7 +13,9 @@
         android:name=".application.HackathonApplication"
         android:theme="@style/AppTheme">
 
-        <activity android:name=".application.main.MainActivity">
+        <activity android:name=".application.main.MainActivity"/>
+
+        <activity android:name=".application.heatmap.HeatMapActivity" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
@@ -25,6 +27,11 @@
             android:name="io.fabric.ApiKey"
             android:value="${fabricApiKey}"
             />
+
+        <!-- Google Maps Api Key -->
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyBc2CQMQj72uKh-xDp04Dd-XE9gDY-Bfxo" />
 
     </application>
 </manifest>
