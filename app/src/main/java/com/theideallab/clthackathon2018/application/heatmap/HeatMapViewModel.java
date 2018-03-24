@@ -73,10 +73,11 @@ public class HeatMapViewModel extends AndroidViewModel {
 
         builder.setTitle("Filter");
 
-        String[] filterOptions = new String[] { "Compare Price", "Show Schools", "Access to Public Transportation" };
-        boolean[] filterOptionsChecked = new boolean[] { true, true, false};
+        String[] filterOptions = new String[] { "Compare Price", "Show Schools", "Access to Public Transportation", "Show Hospitals" };
+        boolean[] filterOptionsChecked = new boolean[] { true, true, false, false};
 
         builder.setMultiChoiceItems(filterOptions, filterOptionsChecked, (dialog, which, isChecked) -> {
+            //TODO
         });
 
         builder.setNeutralButton("Advanced Filter", (dialog, which) -> {

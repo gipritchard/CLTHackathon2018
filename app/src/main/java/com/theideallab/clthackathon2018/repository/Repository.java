@@ -29,7 +29,7 @@ public class Repository implements Callback<ObjResponse> {
     }
 
     public void retrofitGetObject(){
-        hackathonApi.getObject(15000).enqueue(this);
+        hackathonApi.getObject(1000).enqueue(this);
     }
 
     @Override
@@ -46,7 +46,7 @@ public class Repository implements Callback<ObjResponse> {
 
             String urlPage = data.getNextUrl();
             if (urlPage != null) {
-                hackathonApi.getNextPage(urlPage).enqueue(this);
+                //hackathonApi.getNextPage(urlPage).enqueue(this);
             }
         }
 
