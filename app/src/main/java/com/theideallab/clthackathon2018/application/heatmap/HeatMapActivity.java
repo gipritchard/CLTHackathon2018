@@ -9,6 +9,8 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
+import android.widget.PopupMenu;
 
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -79,5 +81,11 @@ public class HeatMapActivity extends AppCompatActivity implements OnMapReadyCall
             String[] permissions = new String[] { Manifest.permission.ACCESS_FINE_LOCATION };
             ActivityCompat.requestPermissions(this, permissions, MY_LOCATION_REQUEST_CODE);
         }
+    }
+
+    public void showFilterMenu(View v) {
+        PopupMenu popupMenu = new PopupMenu(this, v);
+        popupMenu.inflate(R.menu.filter_menu);
+        popupMenu.show();
     }
 }
