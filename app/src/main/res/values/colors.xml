@@ -4,6 +4,6 @@
     <color name="colorPrimaryDark">#184C9A</color>
     <color name="colorAccent">#6abf69</color>
 
-    <color name="colorGradientAltStart">#00f</color>
-    <color name="colorGradientAltEnd">#0ff</color>
+    <color name="colorGradientAltStart">#0ff</color>
+    <color name="colorGradientAltEnd">#00f</color>
 </resources>
