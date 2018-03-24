@@ -33,7 +33,7 @@ public class Repository {
 
     public void retrofitGetObject(){
 
-        hackathonApi.getObject().enqueue(new Callback<ObjResponse>() {
+        hackathonApi.getObject(200).enqueue(new Callback<ObjResponse>() {
             @Override
             public void onResponse(Call<ObjResponse> call, Response<ObjResponse> response) {
                 ArrayList<HeatMapData> value = heatMapData.getValue();

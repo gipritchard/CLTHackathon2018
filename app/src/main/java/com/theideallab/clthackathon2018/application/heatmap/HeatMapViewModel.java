@@ -33,7 +33,8 @@ public class HeatMapViewModel extends AndroidViewModel {
     }
 
     public void onLoadComplete(){
-        repository.testOnGetDataSuccessfulNerds();
+        //repository.testOnGetDataSuccessfulNerds();
+        repository.retrofitGetObject();
     }
 
     public void generateTestData(@NonNull ArrayList<HeatMapData> dataset){
