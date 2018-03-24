@@ -13,6 +13,9 @@ public interface HackathonApi {
     @GET("obj/")
     Call<ObjResponse> getObject(@Query(value = "limit") int limit);
 
+    @GET("obj/")
+    Call<ObjResponse> getObject(@Query(value = "limit") int limit, @Query(value = "obj_type") String type);
+
     @GET
     Call<ObjResponse> getNextPage(@Url String url);
 }

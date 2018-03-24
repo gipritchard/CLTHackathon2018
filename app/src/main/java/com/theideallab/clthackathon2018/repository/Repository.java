@@ -25,7 +25,7 @@ public class Repository implements Callback<ObjResponse> {
 
     public Repository() {
         hackathonApi = HackathonApiClient.getHackathonApiInterface();
-        //realm = Realm.getDefaultInstance();
+        realm = Realm.getDefaultInstance();
     }
 
     public void retrofitGetObject(){
