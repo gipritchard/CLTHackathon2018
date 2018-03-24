@@ -44,7 +44,7 @@ public class HeatMapViewModel extends AndroidViewModel {
 
             HeatmapTileProvider provider = new HeatmapTileProvider.Builder()
                     .data(entry.getPoints())
-                    .weightedData(entry.getWeightedPoints())
+                    //.weightedData(entry.getWeightedPoints())
                     .build();
 
             overlays.add(new TileOverlayOptions().tileProvider(provider));

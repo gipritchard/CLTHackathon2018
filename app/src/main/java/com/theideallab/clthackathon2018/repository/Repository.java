@@ -23,7 +23,7 @@ public class Repository {
 
     public Repository() {
         //hackathonApi = HackathonApiClient.getHackathonApiInterface();
-        realm = Realm.getDefaultInstance();
+        //realm = Realm.getDefaultInstance();
     }
 
     public void testOnGetDataSuccessfulNerds() {
