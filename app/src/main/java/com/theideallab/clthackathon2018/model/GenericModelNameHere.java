@@ -10,11 +10,15 @@ import io.realm.RealmObject;
 public class GenericModelNameHere extends RealmObject {
 
     private ArrayList<LatLng> coordinateList;
+    private String filterName;
+    private String filterType;
 
     public GenericModelNameHere() {}
 
-    public GenericModelNameHere(ArrayList<LatLng> coordinateList) {
+    public GenericModelNameHere(ArrayList<LatLng> coordinateList, String filterName, String filterType) {
         this.coordinateList = coordinateList;
+        this.filterName = filterName;
+        this.filterType = filterType;
     }
 
     public ArrayList<LatLng> getCoordinateList() {
@@ -23,5 +27,21 @@ public class GenericModelNameHere extends RealmObject {
 
     public void setCoordinateList(ArrayList<LatLng> coordinateList) {
         this.coordinateList = coordinateList;
+    }
+
+    public String getFilterName() {
+        return filterName;
+    }
+
+    public void setFilterName(String filterName) {
+        this.filterName = filterName;
+    }
+
+    public String getFilterType() {
+        return filterType;
+    }
+
+    public void setFilterType(String filterType) {
+        this.filterType = filterType;
     }
 }
