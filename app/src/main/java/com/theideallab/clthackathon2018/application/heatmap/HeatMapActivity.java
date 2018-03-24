@@ -32,8 +32,6 @@ import com.google.android.gms.maps.model.TileOverlayOptions;
 import com.theideallab.clthackathon2018.R;
 import com.theideallab.clthackathon2018.application.about.AboutActivity;
 
-import java.util.ArrayList;
-
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
@@ -139,18 +137,13 @@ public class HeatMapActivity extends AppCompatActivity implements OnMapReadyCall
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if (viewModel.filters == null) {
-            viewModel.filters = new ArrayList<>();
-        }
-
         switch (item.getItemId()) {
             case R.id.has_children:
                 this.startActivity(new Intent(this, AboutActivity.class));
                 break;
+
             default: { } break;
         }
-
-        viewModel.getOverlays();
 
         return false;
     }

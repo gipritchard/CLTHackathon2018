@@ -23,7 +23,6 @@ import java.util.ArrayList;
 public class HeatMapViewModel extends AndroidViewModel {
 
     private Repository repository;
-    public ArrayList<String> filters;
 
     public MutableLiveData<Boolean> clearFilters = new MutableLiveData<>();
     public MutableLiveData<ArrayList<TileOverlayOptions>> heatmapFilters = new MutableLiveData<>();
@@ -34,7 +33,7 @@ public class HeatMapViewModel extends AndroidViewModel {
         repository = new Repository();
         repository.heatMapData.observeForever(heatMapData -> {
             if (heatMapData != null) {
-                generateTestData(heatMapData);
+                createHeatMapLayers(heatMapData);
             }
         });
     }
@@ -44,7 +43,7 @@ public class HeatMapViewModel extends AndroidViewModel {
         repository.launchGetRequestBasedOffOfSharedPreferences(helper);
     }
 
-    public void generateTestData(@NonNull ArrayList<HeatMapData> dataset){
+    public void createHeatMapLayers(@NonNull ArrayList<HeatMapData> dataset){
 
         ArrayList<TileOverlayOptions> overlays = new ArrayList<>();
 
@@ -63,11 +62,6 @@ public class HeatMapViewModel extends AndroidViewModel {
         heatmapFilters.postValue(overlays);
     }
 
-    public void getOverlays() {
-        //TODO the api things ( and probably return live data things)
-        //Can just use filters from the viewmodel now
-    }
-
     public AlertDialog createFilterDialog(@NonNull AppCompatActivity ctx) {
         AlertDialog.Builder builder = new AlertDialog.Builder(ctx);
 
@@ -75,8 +69,8 @@ public class HeatMapViewModel extends AndroidViewModel {
 
         SharedPreferencesHelper helper = new SharedPreferencesHelper(ctx);
 
-        String[] filterOptions = new String[] { "Compare Price", "Show Schools", "Show Hospitals" };
-        boolean[] filterOptionsChecked = new boolean[] { helper.getPrice(), helper.getSchools(), helper.getHospitals()};
+        String[] filterOptions = new String[] { "Compare Price", "Show Schools", "Show Hospitals", "Show Parks", "Show Greenways" };
+        boolean[] filterOptionsChecked = new boolean[] { helper.getPrice(), helper.getSchools(), helper.getHospitals(), helper.getParks(), helper.getGreenways() };
 
         builder.setMultiChoiceItems(filterOptions, filterOptionsChecked, (dialog, which, isChecked) -> {
             filterOptionsChecked[which] = isChecked;
@@ -108,6 +102,18 @@ public class HeatMapViewModel extends AndroidViewModel {
                     case 2:
                     {
                         helper.setHospital(checked);
+                    }
+                    break;
+
+                    case 3:
+                    {
+                        helper.setParks(checked);
+                    }
+                    break;
+
+                    case 4:
+                    {
+                        helper.setGreenways(checked);
                     }
                     break;
 

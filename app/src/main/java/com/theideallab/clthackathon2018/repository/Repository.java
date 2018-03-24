@@ -30,20 +30,20 @@ public class Repository implements Callback<ObjResponse> {
         realm = Realm.getDefaultInstance();
     }
 
-    public void retrofitGetObject(){
-        hackathonApi.getObject(1000).enqueue(this);
-    }
-
     public void retrofitGetObject(String type){
         hackathonApi.getObject(1000, type).enqueue(this);
     }
 
     public void launchGetRequestBasedOffOfSharedPreferences(@NonNull SharedPreferencesHelper helper){
 
+        heatMapData.setValue(new ArrayList<>());
+
         boolean[] filterOptionsChecked = new boolean[]{
                 helper.getPrice(),
                 helper.getSchools(),
-                helper.getHospitals()
+                helper.getHospitals(),
+                helper.getParks(),
+                helper.getGreenways()
         };
 
         for (int i = 0; i < filterOptionsChecked.length; i++) {
@@ -67,6 +67,16 @@ public class Repository implements Callback<ObjResponse> {
                     }
                     break;
 
+                    case 3: {
+                        retrofitGetObject("Parks");
+                    }
+                    break;
+
+                    case 4: {
+                        retrofitGetObject("Greenway");
+                    }
+                    break;
+
                     default: {
                     }
                     break;
@@ -74,13 +84,6 @@ public class Repository implements Callback<ObjResponse> {
             }
         }
     }
-
-
-
-
-
-
-
 
 
     @Override
@@ -95,10 +98,12 @@ public class Repository implements Callback<ObjResponse> {
             HeatMapDataImpl obj = new HeatMapDataImpl(data);
             value.add(obj);
 
+            /*
             String urlPage = data.getNextUrl();
             if (urlPage != null) {
-                //hackathonApi.getNextPage(urlPage).enqueue(this);
+                hackathonApi.getNextPage(urlPage).enqueue(this);
             }
+            */
         }
 
         heatMapData.postValue(value);
