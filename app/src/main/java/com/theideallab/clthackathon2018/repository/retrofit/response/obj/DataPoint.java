@@ -1,6 +1,7 @@
 package com.theideallab.clthackathon2018.repository.retrofit.response.obj;
 
 import com.google.gson.annotations.SerializedName;
+import com.theideallab.clthackathon2018.model.Coordinate;
 
 /**
  * Created by Alex Pritchard on 3/24/18.
@@ -71,5 +72,9 @@ public class DataPoint {
 
     public String getExtra() {
         return extra;
+    }
+
+    public Coordinate getCoordinate(){
+        return new Coordinate(getLatitude(), getLongitude());
     }
 }

@@ -7,12 +7,17 @@ import android.support.annotation.NonNull;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.maps.android.heatmaps.WeightedLatLng;
 import com.theideallab.clthackathon2018.application.heatmap.HeatMapData;
+import com.theideallab.clthackathon2018.model.GenericModelNameHere;
 import com.theideallab.clthackathon2018.repository.retrofit.HackathonApi;
 import com.theideallab.clthackathon2018.repository.retrofit.HackathonApiClient;
+import com.theideallab.clthackathon2018.repository.retrofit.response.obj.ObjResponse;
 
 import java.util.ArrayList;
 
 import io.realm.Realm;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class Repository {
 
@@ -24,6 +29,30 @@ public class Repository {
     public Repository() {
         hackathonApi = HackathonApiClient.getHackathonApiInterface();
         //realm = Realm.getDefaultInstance();
+    }
+
+    public void retrofitGetObject(){
+
+        hackathonApi.getObject().enqueue(new Callback<ObjResponse>() {
+            @Override
+            public void onResponse(Call<ObjResponse> call, Response<ObjResponse> response) {
+                ArrayList<HeatMapData> value = heatMapData.getValue();
+                if (value == null) {
+                    value = new ArrayList<>();
+                }
+
+                ObjResponse data = response.body();
+                if (data != null) {
+                    GenericModelNameHere obj = new GenericModelNameHere(data);
+                    value.add(obj);
+                }
+
+                heatMapData.postValue(value);
+            }
+
+            @Override public void onFailure(Call<ObjResponse> call, Throwable t) {}
+        });
+
     }
 
     public void testOnGetDataSuccessfulNerds() {
