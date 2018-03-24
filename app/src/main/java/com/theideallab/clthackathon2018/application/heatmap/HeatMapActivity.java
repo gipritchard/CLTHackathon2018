@@ -1,8 +1,13 @@
 package com.theideallab.clthackathon2018.application.heatmap;
 
+import android.Manifest;
 import android.arch.lifecycle.ViewModelProviders;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 
 import com.google.android.gms.maps.GoogleMap;
@@ -13,6 +18,8 @@ import com.theideallab.clthackathon2018.R;
 
 
 public class HeatMapActivity extends AppCompatActivity implements OnMapReadyCallback {
+
+    private static final int MY_LOCATION_REQUEST_CODE = 69;
 
     private GoogleMap googleMap;
     private HeatMapViewModel viewModel;
@@ -43,8 +50,34 @@ public class HeatMapActivity extends AppCompatActivity implements OnMapReadyCall
     @Override
     public void onMapReady(GoogleMap googleMap) {
         this.googleMap = googleMap;
+        checkAndRequestPermissions(googleMap);
         viewModel.onLoadComplete();
     }
 
     @Override public void onPointerCaptureChanged(boolean hasCapture) {}
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+        if (requestCode == MY_LOCATION_REQUEST_CODE) {
+
+            if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
+                    == PackageManager.PERMISSION_GRANTED &&
+                    permissions.length == 1 &&
+                    this.googleMap != null) {
+                this.googleMap.setMyLocationEnabled(true);
+            }
+        }
+    }
+
+    private void checkAndRequestPermissions(@NonNull GoogleMap googleMap) {
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
+                == PackageManager.PERMISSION_GRANTED)
+        {
+            googleMap.setMyLocationEnabled(true);
+        }
+        else {
+            String[] permissions = new String[] { Manifest.permission.ACCESS_FINE_LOCATION };
+            ActivityCompat.requestPermissions(this, permissions, MY_LOCATION_REQUEST_CODE);
+        }
+    }
 }

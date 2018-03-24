@@ -2,13 +2,9 @@ package com.theideallab.clthackathon2018.application.heatmap;
 
 import android.app.Application;
 import android.arch.lifecycle.AndroidViewModel;
-import android.arch.lifecycle.LifecycleOwner;
 import android.arch.lifecycle.MutableLiveData;
-import android.arch.lifecycle.Observer;
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 
-import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.TileOverlayOptions;
 import com.google.maps.android.heatmaps.HeatmapTileProvider;
 import com.theideallab.clthackathon2018.repository.Repository;
@@ -46,10 +42,9 @@ public class HeatMapViewModel extends AndroidViewModel {
 
         for(HeatMapData entry : dataset) {
 
-            ArrayList<LatLng> list = entry.getPoints();
-
             HeatmapTileProvider provider = new HeatmapTileProvider.Builder()
-                    .data(list)
+                    .data(entry.getPoints())
+                    .weightedData(entry.getWeightedPoints())
                     .build();
 
             overlays.add(new TileOverlayOptions().tileProvider(provider));
