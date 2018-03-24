@@ -22,7 +22,7 @@ public class Repository {
     public MutableLiveData<ArrayList<HeatMapData>> heatMapData = new MutableLiveData<>();
 
     public Repository() {
-        //hackathonApi = HackathonApiClient.getHackathonApiInterface();
+        hackathonApi = HackathonApiClient.getHackathonApiInterface();
         //realm = Realm.getDefaultInstance();
     }
 

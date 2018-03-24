@@ -102,7 +102,7 @@ public class HeatMapActivity extends AppCompatActivity implements OnMapReadyCall
 
         return permissionGranted;
     }
-    
+
     private void checkAndRequestPermissions(@NonNull GoogleMap googleMap) {
         if (!onSuccessfulPermissionRequest(googleMap))
         {
