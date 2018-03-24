@@ -10,6 +10,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.widget.Toast;
 
 import com.google.android.gms.maps.model.TileOverlayOptions;
+import com.google.maps.android.heatmaps.Gradient;
 import com.google.maps.android.heatmaps.HeatmapTileProvider;
 import com.theideallab.clthackathon2018.model.preferences.SharedPreferencesHelper;
 import com.theideallab.clthackathon2018.repository.Repository;
@@ -50,6 +51,9 @@ public class HeatMapViewModel extends AndroidViewModel {
         for(HeatMapData entry : dataset) {
 
             if(!entry.getPoints().isEmpty()) {
+
+
+
                 HeatmapTileProvider provider = new HeatmapTileProvider.Builder()
                         .data(entry.getPoints())
                         //.weightedData(entry.getWeightedPoints())
