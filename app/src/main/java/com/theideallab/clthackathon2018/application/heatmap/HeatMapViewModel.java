@@ -4,20 +4,17 @@ import android.app.Application;
 import android.arch.lifecycle.AndroidViewModel;
 import android.arch.lifecycle.MutableLiveData;
 import android.content.Context;
-import android.content.DialogInterface;
-import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.widget.Toast;
 
 import com.google.android.gms.maps.model.TileOverlayOptions;
 import com.google.maps.android.heatmaps.HeatmapTileProvider;
-import com.theideallab.clthackathon2018.R;
-import com.theideallab.clthackathon2018.application.advancedfilter.AdvancedFilterActivity;
+import com.theideallab.clthackathon2018.model.preferences.SharedPreferencesHelper;
 import com.theideallab.clthackathon2018.repository.Repository;
 
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by Alex Pritchard on 3/23/18.
@@ -28,6 +25,7 @@ public class HeatMapViewModel extends AndroidViewModel {
     private Repository repository;
     public ArrayList<String> filters;
 
+    public MutableLiveData<Boolean> clearFilters = new MutableLiveData<>();
     public MutableLiveData<ArrayList<TileOverlayOptions>> heatmapFilters = new MutableLiveData<>();
 
     public HeatMapViewModel(@NonNull Application application) {
@@ -41,9 +39,9 @@ public class HeatMapViewModel extends AndroidViewModel {
         });
     }
 
-    public void onLoadComplete(){
-        //repository.testOnGetDataSuccessfulNerds();
-        repository.retrofitGetObject();
+    public void onLoadComplete(@NonNull Context ctx){
+        SharedPreferencesHelper helper = new SharedPreferencesHelper(ctx);
+        repository.launchGetRequestBasedOffOfSharedPreferences(helper);
     }
 
     public void generateTestData(@NonNull ArrayList<HeatMapData> dataset){
@@ -60,7 +58,6 @@ public class HeatMapViewModel extends AndroidViewModel {
 
                 overlays.add(new TileOverlayOptions().tileProvider(provider));
             }
-
         }
 
         heatmapFilters.postValue(overlays);
@@ -76,8 +73,10 @@ public class HeatMapViewModel extends AndroidViewModel {
 
         builder.setTitle("Filter");
 
+        SharedPreferencesHelper helper = new SharedPreferencesHelper(ctx);
+
         String[] filterOptions = new String[] { "Compare Price", "Show Schools", "Show Hospitals" };
-        boolean[] filterOptionsChecked = new boolean[] { true, true, true};
+        boolean[] filterOptionsChecked = new boolean[] { helper.getPrice(), helper.getSchools(), helper.getHospitals()};
 
         builder.setMultiChoiceItems(filterOptions, filterOptionsChecked, (dialog, which, isChecked) -> {
             filterOptionsChecked[which] = isChecked;
@@ -85,40 +84,44 @@ public class HeatMapViewModel extends AndroidViewModel {
 
         builder.setPositiveButton("Apply", (dialog, which) -> {
 
+            clearFilters.postValue(true);
+            heatmapFilters.setValue(new ArrayList<>());
+
             for (int i = 0; i < filterOptionsChecked.length; i++) {
 
                 boolean checked = filterOptionsChecked[i];
-                if(checked) {
-                    switch (i) {
 
-                        case 0:
-                        {
-                            repository.retrofitGetObject("Price");
-                        }
-                        break;
+                switch (i) {
 
-                        case 1:
-                        {
-                            repository.retrofitGetObject("School");
-                        }
-                        break;
-
-                        case 2:
-                        {
-                            repository.retrofitGetObject("Hospital");
-                        }
-                        break;
-
-                        default: { } break;
+                    case 0:
+                    {
+                        helper.setPrice(checked);
                     }
+                    break;
+
+                    case 1:
+                    {
+                        helper.setSchools(checked);
+                    }
+                    break;
+
+                    case 2:
+                    {
+                        helper.setHospital(checked);
+                    }
+                    break;
+
+                    default: { } break;
                 }
             }
 
+            repository.launchGetRequestBasedOffOfSharedPreferences(helper);
         });
 
         builder.setNeutralButton("Advanced Filter", (dialog, which) -> {
-            Intent intent = AdvancedFilterActivity.createIntent(ctx);
-            ctx.startActivityForResult(intent, 123);
+            Toast.makeText(ctx, "Coming Soon",Toast.LENGTH_SHORT).show();
+//            Intent intent = AdvancedFilterActivity.createIntent(ctx);
+//            ctx.startActivityForResult(intent, 123);
         });
 
         return builder.create();

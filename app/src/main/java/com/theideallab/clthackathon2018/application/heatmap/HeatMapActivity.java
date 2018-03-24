@@ -1,6 +1,7 @@
 package com.theideallab.clthackathon2018.application.heatmap;
 
 import android.Manifest;
+import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Context;
 import android.content.pm.PackageManager;
@@ -65,6 +66,14 @@ public class HeatMapActivity extends AppCompatActivity implements OnMapReadyCall
                 }
             }
         });
+        viewModel.clearFilters.observe(this, new Observer<Boolean>() {
+            @Override
+            public void onChanged(@Nullable Boolean aBoolean) {
+                if (googleMap != null) {
+                    googleMap.clear();
+                }
+            }
+        });
     }
 
     @Override
@@ -72,7 +81,7 @@ public class HeatMapActivity extends AppCompatActivity implements OnMapReadyCall
         this.googleMap = googleMap;
         this.googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(35.2271,-80.8431) , 10) ); //Start Map over Charlotte NC
         checkAndRequestPermissions(googleMap);
-        viewModel.onLoadComplete();
+        viewModel.onLoadComplete(this);
     }
 
     @Override

@@ -2,9 +2,11 @@ package com.theideallab.clthackathon2018.repository;
 
 
 import android.arch.lifecycle.MutableLiveData;
+import android.support.annotation.NonNull;
 
 import com.theideallab.clthackathon2018.application.heatmap.HeatMapData;
 import com.theideallab.clthackathon2018.model.HeatMapDataImpl;
+import com.theideallab.clthackathon2018.model.preferences.SharedPreferencesHelper;
 import com.theideallab.clthackathon2018.repository.retrofit.HackathonApi;
 import com.theideallab.clthackathon2018.repository.retrofit.HackathonApiClient;
 import com.theideallab.clthackathon2018.repository.retrofit.response.obj.ObjResponse;
@@ -35,6 +37,51 @@ public class Repository implements Callback<ObjResponse> {
     public void retrofitGetObject(String type){
         hackathonApi.getObject(1000, type).enqueue(this);
     }
+
+    public void launchGetRequestBasedOffOfSharedPreferences(@NonNull SharedPreferencesHelper helper){
+
+        boolean[] filterOptionsChecked = new boolean[]{
+                helper.getPrice(),
+                helper.getSchools(),
+                helper.getHospitals()
+        };
+
+        for (int i = 0; i < filterOptionsChecked.length; i++) {
+
+            boolean checked = filterOptionsChecked[i];
+            if (checked) {
+                switch (i) {
+
+                    case 0: {
+                        retrofitGetObject("Price");
+                    }
+                    break;
+
+                    case 1: {
+                        retrofitGetObject("School");
+                    }
+                    break;
+
+                    case 2: {
+                        retrofitGetObject("Hospital");
+                    }
+                    break;
+
+                    default: {
+                    }
+                    break;
+                }
+            }
+        }
+    }
+
+
+
+
+
+
+
+
 
     @Override
     public void onResponse(Call<ObjResponse> call, Response<ObjResponse> response) {
