@@ -60,7 +60,6 @@ public class HeatMapActivity extends AppCompatActivity implements OnMapReadyCall
 
             if (googleMap != null && tileProviders != null) {
 
-                googleMap.clear();
                 for(TileOverlayOptions entry : tileProviders) {
                     googleMap.addTileOverlay(entry);
                 }

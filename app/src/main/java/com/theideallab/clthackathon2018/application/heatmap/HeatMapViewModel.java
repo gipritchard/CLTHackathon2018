@@ -52,12 +52,21 @@ public class HeatMapViewModel extends AndroidViewModel {
 
             if(!entry.getPoints().isEmpty()) {
 
+                HeatmapTileProvider provider = null;
 
-
-                HeatmapTileProvider provider = new HeatmapTileProvider.Builder()
-                        .data(entry.getPoints())
-                        //.weightedData(entry.getWeightedPoints())
-                        .build();
+                if(entry.getGradient() != null) {
+                    provider = new HeatmapTileProvider.Builder()
+                            .data(entry.getPoints())
+                            .gradient(entry.getGradient())
+                            //.weightedData(entry.getWeightedPoints())
+                            .build();
+                }
+                else {
+                    provider = new HeatmapTileProvider.Builder()
+                            .data(entry.getPoints())
+                            //.weightedData(entry.getWeightedPoints())
+                            .build();
+                }
 
                 overlays.add(new TileOverlayOptions().tileProvider(provider));
             }

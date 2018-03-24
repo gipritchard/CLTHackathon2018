@@ -2,8 +2,10 @@ package com.theideallab.clthackathon2018.repository;
 
 
 import android.arch.lifecycle.MutableLiveData;
+import android.graphics.Color;
 import android.support.annotation.NonNull;
 
+import com.google.maps.android.heatmaps.Gradient;
 import com.theideallab.clthackathon2018.application.heatmap.HeatMapData;
 import com.theideallab.clthackathon2018.model.HeatMapDataImpl;
 import com.theideallab.clthackathon2018.model.preferences.SharedPreferencesHelper;
@@ -93,9 +95,27 @@ public class Repository implements Callback<ObjResponse> {
             value = new ArrayList<>();
         }
 
+        Gradient gradient = null;
+
+        String type = call.request().url().queryParameter("obj_type");
+        if(type != null && !type.equals("Price")) {
+
+            int[] colors = {
+                    Color.argb(100, 0, 0, 255), //#00f0ff
+                    Color.argb(100,0, 225, 225)
+            };
+
+            float[] startPoints = {
+                    0.2f, 1f
+            };
+
+            gradient = new Gradient(colors,startPoints);
+        }
+
+
         ObjResponse data = response.body();
         if (data != null) {
-            HeatMapDataImpl obj = new HeatMapDataImpl(data);
+            HeatMapDataImpl obj = new HeatMapDataImpl(data, gradient);
             value.add(obj);
 
             /*

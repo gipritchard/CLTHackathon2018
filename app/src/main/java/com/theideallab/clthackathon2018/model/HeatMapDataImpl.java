@@ -1,8 +1,10 @@
 package com.theideallab.clthackathon2018.model;
 
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 
 import com.google.android.gms.maps.model.LatLng;
+import com.google.maps.android.heatmaps.Gradient;
 import com.google.maps.android.heatmaps.WeightedLatLng;
 import com.theideallab.clthackathon2018.application.heatmap.HeatMapData;
 import com.theideallab.clthackathon2018.repository.retrofit.response.obj.ObjResponse;
@@ -14,16 +16,16 @@ import javax.annotation.Nonnull;
 import io.realm.RealmList;
 import io.realm.RealmObject;
 
-public class HeatMapDataImpl extends RealmObject implements HeatMapData {
+public class HeatMapDataImpl implements HeatMapData {
 
     private RealmList<Coordinate> coordinateList = new RealmList<>();
-    private String filterName;
-    private String filterType;
+    private Gradient gradient;
 
     public HeatMapDataImpl() {}
 
-    public HeatMapDataImpl(@NonNull ObjResponse data) {
+    public HeatMapDataImpl(@NonNull ObjResponse data, @Nullable Gradient gradient) {
         this.coordinateList.addAll(data.getAllCoordinates());
+        this.gradient = gradient;
     }
 
     @Override
@@ -51,32 +53,19 @@ public class HeatMapDataImpl extends RealmObject implements HeatMapData {
     @NonNull
     @Override
     public String getType() {
-        return filterType;
-    }
-
-    public RealmList<Coordinate> getCoordinateList() {
-        return coordinateList;
-    }
-
-    public void setCoordinateList(RealmList<Coordinate> coordinateList) {
-        this.coordinateList = coordinateList;
+        return "";
     }
 
     @Nonnull
     @Override
     public String getFilterName() {
-        return filterName;
+        return "";
     }
 
-    public void setFilterName(String filterName) {
-        this.filterName = filterName;
-    }
 
-    public String getFilterType() {
-        return filterType;
-    }
-
-    public void setFilterType(String filterType) {
-        this.filterType = filterType;
+    @Nullable
+    @Override
+    public Gradient getGradient() {
+        return gradient;
     }
 }

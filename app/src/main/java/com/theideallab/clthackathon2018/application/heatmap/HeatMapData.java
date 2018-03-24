@@ -1,8 +1,10 @@
 package com.theideallab.clthackathon2018.application.heatmap;
 
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 
 import com.google.android.gms.maps.model.LatLng;
+import com.google.maps.android.heatmaps.Gradient;
 import com.google.maps.android.heatmaps.WeightedLatLng;
 
 import java.util.ArrayList;
@@ -18,5 +20,6 @@ public interface HeatMapData {
     @NonNull ArrayList<WeightedLatLng> getWeightedPoints();
     @NonNull String getFilterName();
     @NonNull String getType();
+    @Nullable Gradient getGradient();
 
 }
