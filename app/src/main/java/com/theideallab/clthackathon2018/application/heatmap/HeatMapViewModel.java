@@ -52,12 +52,15 @@ public class HeatMapViewModel extends AndroidViewModel {
 
         for(HeatMapData entry : dataset) {
 
-            HeatmapTileProvider provider = new HeatmapTileProvider.Builder()
-                    .data(entry.getPoints())
-                    //.weightedData(entry.getWeightedPoints())
-                    .build();
+            if(!entry.getPoints().isEmpty()) {
+                HeatmapTileProvider provider = new HeatmapTileProvider.Builder()
+                        .data(entry.getPoints())
+                        //.weightedData(entry.getWeightedPoints())
+                        .build();
 
-            overlays.add(new TileOverlayOptions().tileProvider(provider));
+                overlays.add(new TileOverlayOptions().tileProvider(provider));
+            }
+
         }
 
         heatmapFilters.postValue(overlays);
@@ -73,11 +76,44 @@ public class HeatMapViewModel extends AndroidViewModel {
 
         builder.setTitle("Filter");
 
-        String[] filterOptions = new String[] { "Compare Price", "Show Schools", "Access to Public Transportation", "Show Hospitals" };
-        boolean[] filterOptionsChecked = new boolean[] { true, true, false, false};
+        String[] filterOptions = new String[] { "Compare Price", "Show Schools", "Show Hospitals" };
+        boolean[] filterOptionsChecked = new boolean[] { true, true, true};
 
         builder.setMultiChoiceItems(filterOptions, filterOptionsChecked, (dialog, which, isChecked) -> {
-            //TODO
+            filterOptionsChecked[which] = isChecked;
+        });
+
+        builder.setPositiveButton("Apply", (dialog, which) -> {
+
+            for (int i = 0; i < filterOptionsChecked.length; i++) {
+
+                boolean checked = filterOptionsChecked[i];
+                if(checked) {
+                    switch (i) {
+
+                        case 0:
+                        {
+                            repository.retrofitGetObject("Price");
+                        }
+                        break;
+
+                        case 1:
+                        {
+                            repository.retrofitGetObject("School");
+                        }
+                        break;
+
+                        case 2:
+                        {
+                            repository.retrofitGetObject("Hospital");
+                        }
+                        break;
+
+                        default: { } break;
+                    }
+                }
+            }
+
         });
 
         builder.setNeutralButton("Advanced Filter", (dialog, which) -> {

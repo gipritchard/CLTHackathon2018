@@ -32,6 +32,10 @@ public class Repository implements Callback<ObjResponse> {
         hackathonApi.getObject(1000).enqueue(this);
     }
 
+    public void retrofitGetObject(String type){
+        hackathonApi.getObject(1000, type).enqueue(this);
+    }
+
     @Override
     public void onResponse(Call<ObjResponse> call, Response<ObjResponse> response) {
         ArrayList<HeatMapData> value = heatMapData.getValue();

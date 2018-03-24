@@ -3,8 +3,29 @@ package com.theideallab.clthackathon2018.repository.retrofit.response.obj;
 import com.google.gson.annotations.SerializedName;
 import com.theideallab.clthackathon2018.model.Coordinate;
 
+import java.util.ArrayList;
+
 /**
- * Created by Alex Pritchard on 3/24/18.
+
+
+ {
+ "pk": 2633,
+ "name": "Presbyterian Hospital",
+ "latitude": null,
+ "longitude": null,
+ "location": [
+     {
+     "latitude": -80.824491,
+     "longitude": 35.211834
+     }
+ ],
+ "obj_type": "Hospital",
+ "sub_type": null,
+ "value": null,
+ "extra": "28204"
+ }
+
+
  */
 
 public class DataPoint {
@@ -15,11 +36,13 @@ public class DataPoint {
     @SerializedName("name")
     private String name;
 
+    /*
     @SerializedName("latitude")
     private String latitude;
 
     @SerializedName("longitude")
     private String longitude;
+    */
 
     @SerializedName("obj_type")
     private String type;
@@ -30,6 +53,8 @@ public class DataPoint {
     @SerializedName("extra")
     private String extra;
 
+    @SerializedName("location")
+    private ArrayList<Point> points;
 
 
     public int getId() {
@@ -38,28 +63,6 @@ public class DataPoint {
 
     public String getName() {
         return name;
-    }
-
-    public double getLatitude() {
-        double lat;
-
-        try {
-            lat = Double.parseDouble(latitude);
-        }
-        catch (Exception e){ lat = 0; }
-
-        return lat;
-    }
-
-    public double getLongitude() {
-        double longitude;
-
-        try {
-            longitude = Double.parseDouble(this.longitude);
-        }
-        catch (Exception e){ longitude = 0; }
-
-        return longitude;
     }
 
     public String getType() {
@@ -74,7 +77,13 @@ public class DataPoint {
         return extra;
     }
 
-    public Coordinate getCoordinate(){
-        return new Coordinate(getLatitude(), getLongitude());
+    public ArrayList<Coordinate> getPoints(){
+        ArrayList<Coordinate> coordinates = new ArrayList<>();
+
+        for(Point point : points) {
+            coordinates.add(point.getCoordinte());
+        }
+
+        return coordinates;
     }
 }
