@@ -1,4 +1,4 @@
-package com.theideallab.clthackathon2018.repository;
+package com.theideallab.clthackathon2018.repository.retrofit;
 
 
 import com.facebook.stetho.okhttp3.StethoInterceptor;
