@@ -2,12 +2,16 @@ package com.theideallab.clthackathon2018.application.heatmap;
 
 import android.app.Application;
 import android.arch.lifecycle.AndroidViewModel;
+import android.arch.lifecycle.LifecycleOwner;
 import android.arch.lifecycle.MutableLiveData;
+import android.arch.lifecycle.Observer;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.TileOverlayOptions;
 import com.google.maps.android.heatmaps.HeatmapTileProvider;
+import com.theideallab.clthackathon2018.repository.Repository;
 
 import java.util.ArrayList;
 
@@ -17,28 +21,39 @@ import java.util.ArrayList;
 
 public class HeatMapViewModel extends AndroidViewModel {
 
+    private Repository repository;
+
     public MutableLiveData<ArrayList<TileOverlayOptions>> heatmapFilters = new MutableLiveData<>();
 
     public HeatMapViewModel(@NonNull Application application) {
         super(application);
 
-//        ArrayList<HeatMapData> filterData = new ArrayList<>();
+        repository = new Repository();
+        repository.heatMapData.observeForever(heatMapData -> {
+            if (heatMapData != null) {
+                generateTestData(heatMapData);
+            }
+        });
     }
 
-    public void generateTestData(){
+    public void onLoadComplete(){
+        repository.testOnGetDataSuccessfulNerds();
+    }
 
-        ArrayList<LatLng> list = new ArrayList<>();
-        list.add(new LatLng(-37.1886, 145.708));
-        list.add(new LatLng(-37.8361, 144.845));
-        list.add(new LatLng(-36.9672, 144.192));
-
-        // Create a heat map tile provider, passing it the latlngs
-        HeatmapTileProvider provider = new HeatmapTileProvider.Builder()
-                .data(list)
-                .build();
+    public void generateTestData(@NonNull ArrayList<HeatMapData> dataset){
 
         ArrayList<TileOverlayOptions> overlays = new ArrayList<>();
-        overlays.add(new TileOverlayOptions().tileProvider(provider));
+
+        for(HeatMapData entry : dataset) {
+
+            ArrayList<LatLng> list = entry.getPoints();
+
+            HeatmapTileProvider provider = new HeatmapTileProvider.Builder()
+                    .data(list)
+                    .build();
+
+            overlays.add(new TileOverlayOptions().tileProvider(provider));
+        }
 
         heatmapFilters.postValue(overlays);
     }

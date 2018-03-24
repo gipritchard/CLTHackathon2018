@@ -43,7 +43,7 @@ public class HeatMapActivity extends AppCompatActivity implements OnMapReadyCall
     @Override
     public void onMapReady(GoogleMap googleMap) {
         this.googleMap = googleMap;
-        viewModel.generateTestData();
+        viewModel.onLoadComplete();
     }
 
     @Override public void onPointerCaptureChanged(boolean hasCapture) {}
