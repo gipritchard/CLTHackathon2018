@@ -18,7 +18,9 @@
 
         <activity android:name=".application.main.MainActivity"/>
 
-        <activity android:name=".application.heatmap.HeatMapActivity" >
+        <activity
+            android:label="CHA Location Tool"
+            android:name=".application.heatmap.HeatMapActivity" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
@@ -26,6 +28,7 @@
         </activity>
 
         <activity
+            android:label="Advanced Filter"
             android:name=".application.advancedfilter.AdvancedFilterActivity"
             android:parentActivityName=".application.heatmap.HeatMapActivity"
             />
