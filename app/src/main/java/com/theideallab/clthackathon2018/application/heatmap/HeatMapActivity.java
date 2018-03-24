@@ -4,6 +4,7 @@ import android.Manifest;
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.location.LocationListener;
@@ -29,6 +30,7 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.TileOverlayOptions;
 import com.theideallab.clthackathon2018.R;
+import com.theideallab.clthackathon2018.application.about.AboutActivity;
 
 import java.util.ArrayList;
 
@@ -138,16 +140,14 @@ public class HeatMapActivity extends AppCompatActivity implements OnMapReadyCall
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (viewModel.filters == null) {
-            viewModel.filters = new ArrayList<String>();
+            viewModel.filters = new ArrayList<>();
         }
 
         switch (item.getItemId()) {
             case R.id.has_children:
-                item.setChecked(!item.isChecked());
-                viewModel.filters.add("SCHOOL");
+                this.startActivity(new Intent(this, AboutActivity.class));
                 break;
-            default:
-                break;
+            default: { } break;
         }
 
         viewModel.getOverlays();

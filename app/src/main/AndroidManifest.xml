@@ -33,6 +33,12 @@
             android:parentActivityName=".application.heatmap.HeatMapActivity"
             />
 
+        <activity
+            android:label="About"
+            android:name=".application.about.AboutActivity"
+            android:parentActivityName=".application.heatmap.HeatMapActivity"
+            />
+
         <!-- Crashlytics -->
         <meta-data
             android:name="io.fabric.ApiKey"

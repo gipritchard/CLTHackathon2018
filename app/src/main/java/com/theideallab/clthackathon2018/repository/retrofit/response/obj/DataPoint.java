@@ -80,8 +80,10 @@ public class DataPoint {
     public ArrayList<Coordinate> getPoints(){
         ArrayList<Coordinate> coordinates = new ArrayList<>();
 
-        for(Point point : points) {
-            coordinates.add(point.getCoordinte());
+        if (points != null) {
+            for(Point point : points) {
+                coordinates.add(point.getCoordinte());
+            }
         }
 
         return coordinates;

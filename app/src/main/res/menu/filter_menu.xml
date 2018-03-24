@@ -1,12 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <group android:checkableBehavior="all">
-
-        <item
-            android:id="@+id/has_children"
-            android:title="Has Children"
-            android:checkable="true"/>
-    </group>
+    <item
+        android:id="@+id/has_children"
+        android:title="About"
+        />
 
 </menu>
