@@ -3,10 +3,16 @@ package com.theideallab.clthackathon2018.application.heatmap;
 import android.app.Application;
 import android.arch.lifecycle.AndroidViewModel;
 import android.arch.lifecycle.MutableLiveData;
+import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.support.annotation.NonNull;
+import android.support.v7.app.AlertDialog;
+import android.support.v7.app.AppCompatActivity;
 
 import com.google.android.gms.maps.model.TileOverlayOptions;
 import com.google.maps.android.heatmaps.HeatmapTileProvider;
+import com.theideallab.clthackathon2018.application.advancedfilter.AdvancedFilterActivity;
 import com.theideallab.clthackathon2018.repository.Repository;
 
 import java.util.ArrayList;
@@ -59,6 +65,17 @@ public class HeatMapViewModel extends AndroidViewModel {
     public void getOverlays() {
         //TODO the api things ( and probably return live data things)
         //Can just use filters from the viewmodel now
+    }
+
+    public AlertDialog createFilterDialog(@NonNull AppCompatActivity ctx) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(ctx);
+
+        builder.setNeutralButton("Advanced", (dialog, which) -> {
+            Intent intent = AdvancedFilterActivity.createIntent(ctx);
+            ctx.startActivityForResult(intent, 123);
+        });
+
+        return builder.create();
     }
 
 }

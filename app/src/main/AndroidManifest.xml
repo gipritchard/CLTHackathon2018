@@ -25,6 +25,11 @@
             </intent-filter>
         </activity>
 
+        <activity
+            android:name=".application.advancedfilter.AdvancedFilterActivity"
+            android:parentActivityName=".application.heatmap.HeatMapActivity"
+            />
+
         <!-- Crashlytics -->
         <meta-data
             android:name="io.fabric.ApiKey"
